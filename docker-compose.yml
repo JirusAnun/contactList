@@ -1,0 +1,21 @@
+version: '3'
+services:
+  contactfront:
+    build: ./Contactfront
+    ports:
+      - 3000:5173
+    depends_on:
+      - contactback
+  contactback:
+    build: ./Contactback
+    ports:
+      - 5001:5001
+    depends_on:
+      - db
+    environment:
+      - MONGODB_URI=mongodb://db:27017
+      - DB_NAME=ContactList
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
